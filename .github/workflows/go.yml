@@ -48,7 +48,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: modem-notifier-binaries
+        name: modem-notifier-${{ matrix.goos }}-${{ matrix.goarch }}
         path: modem-notifier-${{ matrix.goos }}-${{ matrix.goarch }}
   
   release:
@@ -61,9 +61,8 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: modem-notifier-binaries
           path: artifacts
-
+      
       - name: Create Release and Upload Artifact
         uses: softprops/action-gh-release@v1
         with:
