@@ -1,6 +1,6 @@
 module modem-dlink-dwr-910m-sms-notifier
 
-go 1.22.2
+go 1.22
 
 require (
 	git.sr.ht/~jackmordaunt/go-toast v1.1.2 // indirect
