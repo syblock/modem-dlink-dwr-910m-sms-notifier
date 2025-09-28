@@ -43,6 +43,19 @@ jobs:
       run: go mod tidy
 
     - name: Build
+      shell: bash
+      if: runner.os != 'Windows'
+      run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o modem-notifier-${{ matrix.goos }}-${{ matrix.goarch }} -v ./...
+
+    - name: Build on Windows
+      shell: powershell
+      if: runner.os == 'Windows'
+      run: |
+        $env:GOOS="${{ matrix.goos }}"
+        $env:GOARCH="${{ matrix.goarch }}"
+        go build -o modem-notifier-${{ matrix.goos }}-${{ matrix.goarch }}.exe -v ./...
+        
+    - name: Build
       run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o modem-notifier-${{ matrix.goos }}-${{ matrix.goarch }} -v ./...
 
     - name: Upload artifact
